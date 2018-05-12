@@ -22,16 +22,16 @@ SELECT COUNT(CodigoCliente) as NºClientes FROM Clientes GROUP BY CodigoEmpleado
 SELECT MAX(FechaPago) ,MIN(FechaPago),CodigoCliente FROM Pagos GROUP BY CodigoCliente;
 
 /*Sacar el codigo cliente de aquellos clientes que hicieron pago en 2008*/
-
+SELECT CodigoCliente FROM Pagos WHERE YEAR(FechaPago)=2008;
 
 /*Sacar numero pedido, codigo cliente, fecha requerida y fecha entrega de los pedidos que no han sido integrados a tiempo*/
 
 
 /*Sacar cuantos productos existen cada linea de pedido*/
 
-
+SELECT COUNT(CodigoProducto),CodigoPedido FROM DetallePedidos GROUP BY CodigoPedido;  
 /*Sacar listado de los 20 codigos de producto mas pedidos ordenados por cantidad pedida*/
-
+SELECT CodigoProducto ,Cantidad FROM DetallePedidos ORDER BY Cantidad DESC LIMIT 20;
 
 /*Sacar numero pedido, codigo clientes, fecha entrega, fecha requerida de los pedidos cuya fecha entrega ha sido al menos 2 dias antes de la fecha requerida*/
 
