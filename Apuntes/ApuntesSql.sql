@@ -25,7 +25,7 @@ SELECT MAX(FechaPago) ,MIN(FechaPago),CodigoCliente FROM Pagos GROUP BY CodigoCl
 SELECT CodigoCliente FROM Pagos WHERE YEAR(FechaPago)=2008;
 
 /*Sacar numero pedido, codigo cliente, fecha requerida y fecha entrega de los pedidos que no han sido integrados a tiempo*/
-
+SELECT P.CodigoPedido,P.CodigoCliente,P.FechaEsperada,P.FechaEntrega FROM  Pedidos as P  WHERE FechaEsperada > FechaEntrega;
 
 /*Sacar cuantos productos existen cada linea de pedido*/
 
