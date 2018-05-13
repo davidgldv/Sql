@@ -45,15 +45,16 @@ SELECT P.CodigoPedido,P.CodigoCliente,P.FechaEsperada,P.FechaEntrega FROM  Pedid
 
 /*Sacar la facturacion que ha tenido la empresa en toda la historia indicando la mas imposible suma(costeproducto*numero udsvendidas), el IVA y el total facturado(suma dos campos anteriores)*/
 
+SELECT SUM(PrecioUnidad*Cantidad) AS Coste , (SUM(PrecioUnidad*Cantidad)*21)/100 AS IVA, (SUM(PrecioUnidad*Cantidad)+(SUM(PrecioUnidad*Cantidad)*21)/100) AS Total FROM DetallePedidos;
 
 /*Sacar la misma que la anterior agrupando por codigoProducto filtrada por los codigos que empiecen por fr*/
-
+SELECT SUM(PrecioUnidad*Cantidad) AS Coste, (SUM(PrecioUnidad*Cantidad)*21)/100 AS IVA, (SUM(PrecioUnidad*Cantidad)+(SUM(PrecioUnidad*Cantidad)*21)/100) AS Total FROM DetallePedidos WHERE CodigoProducto LIKE 'FR%';
 
 /*Obtener listado del nombre de empleados con el nombre de sus jefes*/
   
-
+SELECT E.CodigoEmpleado, CONCAT(E.Nombre,' ', E.Apellido1) AS NombreEmpleado, CONCAT(Jefes.Nombre,' ', Jefes.Apellido1) AS NombreJefe FROM Empleados AS E, Empleados AS Jefes WHERE E.CodigoJefe=Jefes.CodigoEmpleado;
 /*Sacar listado de jefes y sacar empleados a su cargo ordenado por numero empleados subordinados*/
-SELECT CodigoJefe,CodigoEmpleado FROM Empleados ORDER BY 
+SELECT E.CodigoEmpleado, CONCAT(E.Nombre,' ', E.Apellido1) AS NombreEmpleado, CONCAT(Jefes.Nombre,' ', Jefes.Apellido1) AS NombreJefe FROM Empleados AS E, Empleados AS Jefes WHERE E.CodigoJefe=Jefes.CodigoEmpleado ORDER BY E.CodigoEmpleado;
 
 /*Obtener nombre de clientes a los que no se les ha entregado a tiempo un pedido*/
 
@@ -62,4 +63,8 @@ SELECT DISTINCT C.NombreCliente FROM  Pedidos as P JOIN Clientes AS C ON P.Codig
 /*Sacar em importe medio de los pedidos*/
 SELECT AVG(Cantidad*PrecioUnidad) FROM DetallePedidos GROUP BY CodigoPedido;
 /*Cual es el pedido mas caro del empleado que mas clientes tiene*/
+
+
+
+
 
