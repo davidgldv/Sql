@@ -1,13 +1,14 @@
-/*Sacar cliente que hizo el pedido de mayor cuantia*/
+/*Sacar cliente que hizo el pedido de mayor cuanti a*/
 
 SELECT Clientes.CodigoCliente , Clientes.NombreCliente , Pedidos.CodigoCliente , Pedidos.CodigoPedido, Detalle.CodigoPedido ,SUM(Detalle.PrecioUnidad*Detalle.Cantidad) as Precio FROM DetallePedidos as Detalle JOIN Pedidos as Pedidos JOIN Clientes as Clientes ON Detalle.CodigoPedido = Pedidos.CodigoPedido AND Pedidos.CodigoCliente = Clientes.CodigoCliente GROUP BY Detalle.CodigoPedido HAVING Precio = (SELECT  SUM(PrecioUnidad*Cantidad) as Precio FROM DetallePedidos GROUP BY CodigoPedido ORDER BY Precio DESC LIMIT 1);
-
+desc D
 
 SELECT  C.NombreCliente,P.CodigoPedido,SUM(D.PrecioUnidad*D.Cantidad) as Precio  FROM DetallePedidos as D JOIN Pedidos as P JOIN Clientes as C ON D.CodigoPedido = P.CodigoPedido AND P.CodigoCliente = C.CodigoCliente  GROUP BY D.CodigoPedido HAVING Precio = (SELECT  SUM(PrecioUnidad*Cantidad) as Precio FROM DetallePedidos GROUP BY CodigoPedido ORDER BY Precio DESC LIMIT 1);
 
 /*Sacar cuantos clientes tienen las ciudades que empiezan por M*/
 
-SELECT COUNT(Clientes.CodigoCliente) FROM Clientes as Clientes  GROUP BY Ciudad HAVING Ciudad REGEXP "^M";
+SELECT COUNT(C.CodigoCliente) FROM Clientes as C GROUP BY Ciudad HAVING Ciudad REGEXP "^M";
+SELECT COUNT(C.CodigoCliente) FROM Clientes as C GROUP BY Ciudad HAVING Ciudad LIKE"M";
 
 /*Sacar CodEmpleado, numero clientes al que atiende cada representante de ventas*/
  
@@ -17,8 +18,8 @@ SELECT CodigoEmpleadoRepVentas, COUNT(CodigoCliente) as NºClientes FROM Cliente
 
 /*Sacar numero de clientes que no tienen asignado RepVentas*/
 
-SELECT COUNT(CodigoCliente) as NºClientes FROM Clientes GROUP BY CodigoEmpleadoRepVentas HAVING CodigoEmpleadoRepVentas IS NULL;  
-
+SELECT COUNT(CodigoCliente) as NºClientes FROM Clientes GROUP BY CodigoEmpleadoRepVentas HAVING CodigoEmpleadoRepVentas IS   NULL;  
+SELECT COUNT(CodigoCliente) as NºClientes FROM Clientes where CodigoEmpleadoRepVentas IS NULL GROUP BY CodigoEmpleadoRepVentas;
 /*Sacar el primer pago y el ultimo de algún cliente*/
 
 SELECT MAX(FechaPago) ,MIN(FechaPago),CodigoCliente FROM Pagos GROUP BY CodigoCliente;
