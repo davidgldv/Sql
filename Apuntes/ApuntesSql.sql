@@ -34,11 +34,11 @@ SELECT P.CodigoPedido,P.CodigoCliente,P.FechaEsperada,P.FechaEntrega FROM  Pedid
 
 /*Sacar cuantos productos existen cada linea de pedido*/
 
-SELECT COUNT(CodigoProducto),CodigoPedido FROM DetallePedidos GROUP BY CodigoPedido;  
+SELECT COUNT(NumeroLinea) FROM DetallePedidos GROUP BY NumeroLinea;  
 
 /*Sacar listado de los 20 codigos de producto mas pedidos ordenados por cantidad pedida*/
 
-SELECT CodigoProducto ,Cantidad FROM DetallePedidos ORDER BY Cantidad DESC LIMIT 20;
+SELECT CodigoProducto ,SUM(Cantidad) FROM DetallePedidos GROUP BY CodigoProducto ORDER BY SUM(Cantidad) DESC LIMIT 20;
 
 /*Sacar numero pedido, codigo clientes, fecha entrega, fecha requerida de los pedidos cuya fecha entrega ha sido al menos 2 dias antes de la fecha requerida*/
 
