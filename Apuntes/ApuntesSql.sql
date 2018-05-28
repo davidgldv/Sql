@@ -66,6 +66,6 @@ SELECT AVG(Cantidad*PrecioUnidad) FROM DetallePedidos GROUP BY CodigoPedido;
 /*Cual es el pedido mas caro del empleado que mas clientes tiene*/
 
 
-
+/**/
 
 
